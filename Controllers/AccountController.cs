@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,13 @@ namespace WeatherStation.Controllers
             };
 
             return new ChallengeResult(provider, authProperties);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+
+            return RedirectToAction(nameof(Login));
         }
     }
 }
